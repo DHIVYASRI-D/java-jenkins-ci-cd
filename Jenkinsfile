@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh '/path/to/apache-maven-3.9.6/bin/mvn clean package'
+                    sh 'C:/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/maven/bin/mvn clean package'
                 }
                 post {
                     echo "Archiving the Artifacts"
