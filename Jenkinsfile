@@ -5,7 +5,9 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'C:/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/maven/bin/mvn clean package'
+                    def mavenHome = 'C:/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/maven'
+                    env.PATH = "${mavenHome}/bin:${env.PATH}"
+                    sh "${mavenHome}/bin/mvn clean package"
                 }
                 post {
                     echo "Archiving the Artifacts"
