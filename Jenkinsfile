@@ -9,7 +9,9 @@ pipeline {
                 script {
                     sh "mvn clean package"
                 }
-                post {
+            }
+            post {
+                success {
                     echo "Archiving the Artifacts"
                     archiveArtifacts artifacts: '**/target/*.war'
                 }
