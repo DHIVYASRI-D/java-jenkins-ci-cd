@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'mvn clean package'
+                    sh '/path/to/apache-maven-3.9.6/bin/mvn clean package'
                 }
                 post {
                     echo "Archiving the Artifacts"
