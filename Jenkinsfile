@@ -2,26 +2,17 @@ pipeline {
     agent any
 
     environment {
-        TOMCAT_URL = 'http://192.168.0.108:8082'  // Update with your Tomcat server URL
+        TOMCAT_URL = 'http://192.168.0.108:8082/'
+        TOMCAT_CREDENTIALS_ID = 'c3062dcb-ef1e-40fa-93be-ddb0dcda954b'
+        CONTEXT_PATH = 'your-context-path'
     }
 
     stages {
         stage('Build') {
             steps {
                 script {
-                    // Maven build
-                    def mvnHome = tool 'Maven'
-                    bat "${mvnHome}/bin/mvn clean install"
-                }
-            }
-        }
-
-        stage('Test') {
-            steps {
-                script {
-                    // Maven test
-                    def mvnHome = tool 'Maven'
-                    bat "${mvnHome}/bin/mvn test"
+                    // Your build steps here
+                    // For example: sh 'mvn clean install'
                 }
             }
         }
@@ -29,18 +20,9 @@ pipeline {
         stage('Deploy to Tomcat') {
             steps {
                 script {
-                    // Deploy to Tomcat using Cargo plugin
-                    def mvnHome = tool 'Maven'
-                    bat "${mvnHome}/bin/mvn cargo:redeploy -Pdeploy-to-tomcat -Dcargo.tomcat.url=${env.TOMCAT_URL}"
+                    deploy adapters: [tomcat9(credentialsId: TOMCAT_CREDENTIALS_ID, path: '', url: TOMCAT_URL)], contextPath: CONTEXT_PATH, war: '**/*.war'
                 }
             }
-        }
-    }
-
-    post {
-        always {
-            // Clean up (optional)
-            cleanWs()
         }
     }
 }
