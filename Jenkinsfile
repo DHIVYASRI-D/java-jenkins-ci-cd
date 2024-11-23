@@ -21,7 +21,7 @@ pipeline {
         stage('Deploy to Tomcat') {
             steps {
                 script {
-                    deploy adapters: [tomcat9(credentialsId: '5d741c1c-b993-425b-a724-4f42d2defe28', path: '/manager/text', url: 'http://192.168.0.108:8082/')], contextPath: '/ci-cd-java-app', war: '**/*.war'
+                   deploy adapters: [tomcat9(credentialsId: '04d3a370-fb2f-4d44-9f1e-2ce7b11efc64', path: '/manager/text', url: 'http://192.168.10.6/')], contextPath: '/ci-cd-java-app', war: '**/*.war'
                 }
             }
         }
